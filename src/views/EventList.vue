@@ -9,7 +9,7 @@
 // @ is an alias to /src
 // eslint-disable-next-line
 import EventCard from "@/components/EventCard.vue";
-
+import EventServices from "../services/EventService.js";
 export default {
   /* eslint-disable */
   name: "Home",
@@ -18,42 +18,27 @@ export default {
   },
   data() {
     return {
-      events: [
-        {
-          id: 5928101,
-          category: "animal welfare",
-          title: "Cat Adoption Day",
-          description: "Find your new feline friend at this event.",
-          location: "Meow Town",
-          date: "January 28, 2022",
-          time: "12:00",
-          petsAllowed: true,
-          organizer: "Kat lad",
-        },
-        {
-          id: 4582797,
-          category: "food",
-          title: "Community Gardening",
-          description: "Join us as we tend to the community edible plants.",
-          location: "Flora City",
-          date: "March 14, 2022",
-          time: "10:00",
-          petsAllowed: true,
-          organizer: "Fern Poll",
-        },
-        {
-          id: 8419988,
-          category: "sustainability",
-          title: "Beach Cleanup",
-          description: "Help pick up trash along the shore.",
-          location: "Playa Del Carmen",
-          date: "July 22, 2022",
-          time: "11:00",
-          petsAllowed: false,
-          organizer: "Carey Wales",
-        },
-      ],
+      events: null,
     };
+  },
+  created() {
+    // axios
+    //   .get(
+    //     "https://my-json-server.typicode.com/Arigatouz/real-world-app-vueui/events"
+    //     // {
+    //     // onDownloadProgress: (e) => {
+    //     // console.log(e);
+    //     // e.target.onloadend(console.log("loaded from onloadend"));
+    //     // console.log(Math.round((e.loaded * 100) / e.total)); using is while get request
+    //     // console.log(Math.round((e.total + 1) / e.loaded) * 100); using it while post request
+    //     // testing some axios benefits
+    //     // },
+    //     // }
+    //   )
+    EventServices.getEvents()
+      .get("/events")
+      .then((response) => (this.events = response.data))
+      .catch((error) => console.error(error));
   },
 };
 </script>
